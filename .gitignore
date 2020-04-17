@@ -1,0 +1,11 @@
+
+*.o
+*.d
+
+*.user
+
+föreläsningar/*
+
+ai-kurs.*
+
+queens/queens
