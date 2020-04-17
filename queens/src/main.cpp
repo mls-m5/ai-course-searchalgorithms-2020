@@ -24,20 +24,17 @@ Board gradientDescent(const Board board,
 int main(int /*argc*/, char ** /*argv*/) {
     cout << "Hello" << endl;
 
-    auto width = 10u, height = 10u;
-    int numQueens = 10;
+    auto width = 8u, height = width;
 
     random_device dev;
     default_random_engine eng;
-    uniform_int_distribution<size_t> wdist(0, width - 1);
     uniform_int_distribution<size_t> hdist(0, height - 1);
     Board board(width, height);
 
-    for (int i = 0; i < numQueens; ++i) {
-        size_t x = wdist(dev);
+    for (size_t i = 0; i < width; ++i) {
         size_t y = hdist(dev);
 
-        board.addQueen(x, y);
+        board.addQueen(i, y);
     }
 
     cout << board << endl;

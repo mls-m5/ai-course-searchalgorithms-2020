@@ -11,7 +11,11 @@ bool queenCheck(Board::Coord p, Board::Coord c) {
     int dx = static_cast<int>(p.x - c.x);
     int dy = static_cast<int>(p.y - c.y);
 
-    return (dx != 0 || dy != 0) && (abs(dx) == abs(dy));
+    if (dx == 0 && dy == 0) {
+        return false;
+    }
+
+    return abs(dx) == abs(dy);
 }
 
 } // namespace
@@ -46,33 +50,25 @@ Board Board::lowestNeighbour() const {
     auto lowest = numThreatenedQueens();
 
     for (auto &q : workingBoard._queens) {
-        workingBoard(q) = 0;
         auto origQ = q;
+        workingBoard(q) = 0;
 
-        for (size_t y = 9; y < height(); ++y) {
-            for (size_t x = 0; x < width(); ++x) {
-                auto c = Coord{x, y};
-                if (q == c) {
-                    continue;
-                }
-                if (workingBoard(x, y) == QUEEN) {
-                    continue;
-                }
+        for (size_t y = 0; y < height(); ++y) {
+            auto c = Coord{origQ.x, y};
 
-                workingBoard(c) = QUEEN;
-                q = c; // Move the current queen
+            workingBoard(c) = QUEEN;
+            q = c; // Move the current queen
 
-                auto newValue = workingBoard.numThreatenedQueens();
+            auto newValue = workingBoard.numThreatenedQueens();
 
-                workingBoard(c) = 0;
+            workingBoard(c) = 0;
 
-                if (newValue < lowest) {
-                    bestBoard = workingBoard;
-                    lowest = newValue;
+            if (newValue < lowest) {
+                bestBoard = workingBoard;
+                lowest = newValue;
 
-                    cout << "found lower board: " << lowest << endl;
-                    cout << bestBoard;
-                }
+                cout << "found lower board: " << lowest << endl;
+                cout << bestBoard;
             }
         }
 
