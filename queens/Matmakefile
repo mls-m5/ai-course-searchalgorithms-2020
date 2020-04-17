@@ -5,7 +5,7 @@ cppflags +=                 # c++ only flags
 cflags +=                   # c only flags
 
 config +=
-   c++14 Wall
+   c++17 Wall
    debug
 
 
